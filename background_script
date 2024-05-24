@@ -1,0 +1,5 @@
+function background(){
+	
+	sleep 30s; git ls-remote --heads 2> /dev/null 1> ~/.data_file
+	
+}
