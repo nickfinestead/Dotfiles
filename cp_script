@@ -1,1 +1,1 @@
-cat ~/.vimrc > ~/gitbashconfig/vimrc
+cat ~/.vimrc > ~/gitbashconfig/.vimrc
