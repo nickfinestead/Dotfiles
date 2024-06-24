@@ -10,18 +10,19 @@ nnoremap <S-Tab> h
 
 " TODO: Finish Function definition, need to test more with output
 function! GotoDefinition()
+	let curr_dir=expand('%:h')
 	let save_cursor=getpos('.')
 	let current_line=getline('.')
-	let opening_paren_pos=stridx(current_line, '(')
-	" if opening_paren_pos == -1
-	"	return 1
-	" endif	
-	" Extract characters until '(' or the entire line if '(' is not found
-	let function_name=strpart(current_line, 0, opening_paren_pos)
-	let output=system( "grep -rn" . function_name . " *.h | awk -F: ' { print '+'$2,$1 } ' | head -n 1" )
-	"if output != ""
-	"	echo output	
-	"	return output
-	"endif
-	echo output
+	let opening_paren_pos=stridx(current_line, '(')-1
+	if opening_paren_pos == -1
+	       return 1
+	endif	
+	let function_name=strpart(current_line, save_cursor[2]-1, opening_paren_pos)
+	let output=system( "grep -Irn --include='*.h'  \"" . function_name . "\" " .  curr_dir ."\/  | awk -F: ' { print $2,$1 } '" )
+	if output != ""
+		echo output	
+	endif
+	"TODO: Add functionality to open in a seperate tab.
+	"TODO: Add functionality to search from parent directory and not the
+	"current directory 
 endfunction
