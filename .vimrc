@@ -7,7 +7,10 @@ inoremap <Tab> <C-t>
 " Maps tab to move forward 1 character, and Shift+Tab back 1 character
 nnoremap <Tab> l
 nnoremap <S-Tab> h
-
+map <C-Tab> gt
+map <C-S-Tab> gT
+filetype plugin on
+map <C-q> <ESC>:qa<CR>
 " TODO: Finish Function definition, need to test more with output
 function! GotoDefinition()
 	let curr_dir=expand('%:h')
