@@ -8,12 +8,14 @@ set hlsearch
 set nowrap
 set relativenumber
 set number
-set formatoptions=croql
+set formatoptions=crql
 set expandtab
 set shiftwidth=4
 set tabstop=4
 set noswapfile
 set clipboard^=unnamed
+set path+=**
+set wildmenu
 "	OVERALL KEYBINDS
 "	<C-Tab> switches to the next tab
 "	<C-S-Tab> switches to the last tab

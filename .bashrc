@@ -3,6 +3,7 @@
 # for examples
 
 export PATH+=":/home/nick/.programs/scala-2.11.7/bin"
+export PATH+=":/home/nick/.local/bin"
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
 alias clip="xclip -i -selection clipboard"
 # If not running interactively, don't do anything
