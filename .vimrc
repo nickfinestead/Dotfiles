@@ -8,14 +8,16 @@ set hlsearch
 set nowrap
 set relativenumber
 set number
-set formatoptions=crql
-set expandtab
+set formatoptions=croql
+"set expandtab
 set shiftwidth=4
 set tabstop=4
 set noswapfile
 set clipboard^=unnamed
 set path+=**
 set wildmenu
+set timeout timeoutlen=3000 ttimeoutlen=100
+packadd! matchit
 "	OVERALL KEYBINDS
 "	<C-Tab> switches to the next tab
 "	<C-S-Tab> switches to the last tab
@@ -53,17 +55,18 @@ nnoremap <Down> <Nop>
 "	- Customized coloring when using diff.
 colorscheme slate
 
-highlight LineNr	ctermfg=green
-highlight ModeMsg	ctermbg=0
-highlight Search	ctermbg=7  ctermfg=0
-highlight Comment	cterm=NONE ctermfg=6
-highlight Statement	cterm=NONE
-highlight DiffAdd	 term=NONE ctermbg=green ctermfg=white
-highlight DiffChange	 term=NONE ctermbg=blue ctermfg=black
-highlight DiffText	 term=NONE ctermbg=blue ctermfg=white
-highlight DiffDelete	 term=NONE ctermbg=red
+highlight LineNr	 ctermfg=green
+highlight ModeMsg	 ctermbg=0
+highlight Search	 ctermbg=7  ctermfg=0
+highlight Comment	 cterm=NONE ctermfg=6
+highlight Statement	 cterm=NONE
+highlight DiffAdd	 term=NONE  ctermbg=green ctermfg=white
+highlight DiffChange term=NONE  ctermbg=blue  ctermfg=black
+highlight DiffText	 term=NONE  ctermbg=blue  ctermfg=white
+highlight DiffDelete term=NONE  ctermbg=red
+highlight MatchParen term=NONE  ctermbg=blue ctermfg=white 
 
-nnoremap <F3> <ESC>:highlight MatchParen term=reverse ctermfg=16 ctermbg=220 guifg=#000000 guibg=#ffd700<CR>ech <CR>
+nnoremap <F3> <ESC>:highlight MatchParen term=reverse ctermfg=16 ctermbg=220 guifg=#000000 guibg=#ffd700<CR>:echo  ''<CR>
 
 
 nnoremap <F2> <ESC>:highlight MatchParen NONE<CR>

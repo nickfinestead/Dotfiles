@@ -5,7 +5,11 @@
 export PATH+=":/home/nick/.programs/scala-2.11.7/bin"
 export PATH+=":/home/nick/.local/bin"
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+export HISTCONTROL=ignoredups
 alias clip="xclip -i -selection clipboard"
+alias paste="xclip -o -selection clipboard"
+alias search="history | grep "
+alias v="vim"
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -24,7 +28,6 @@ export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_SHOWCOLORHINTS="true"
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
