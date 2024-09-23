@@ -51,6 +51,8 @@ nnoremap <Left> gt
 nnoremap <Right> gT
 nnoremap <Down> <Nop>
 
+" TODO; Will remap C-w to do wrap around for ", (), and ' characters cause I
+" think that would be cool
 inoremap <C-w> <Nop>
 "	COLORING
 colorscheme slate
@@ -66,11 +68,17 @@ highlight DiffDelete term=NONE  ctermbg=red
 highlight MatchParen term=NONE  ctermbg=blue  ctermfg=white
 
 if &syntax ==""
-    set filetype="notes"
+	set filetype="notes"
 endif
 
 
 " COMMANDS
 function! Trail()
 	:%s/\s\+$//e
+endfunction
+
+function! Wrapword(char)
+	execute "normal! viwovi" . a:char
+	normal! e
+	execute "normal! a" . a:char
 endfunction
