@@ -4,12 +4,28 @@
 
 export PATH+=":/home/nick/.programs/scala-2.11.7/bin"
 export PATH+=":/home/nick/.local/bin"
+export PATH+=":/usr/local/go/bin"
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
 export HISTCONTROL=ignoredups
 alias clip="xclip -i -selection clipboard"
 alias paste="xclip -o -selection clipboard"
 alias search="history | grep "
+alias dm="source ~/.venv/MnEnv/bin/activate"
 alias v="vim"
+alias mars="java -jar ~/Downloads/Mars4_5.jar"
+alias diffall='scala lib/spl.jar 4 tests/* > spl.txt && scala spl-solution.jar 4 tests/* > sol.txt && vimdiff spl.txt sol.txt'
+alias vim="nvim"
+alias rc="vim ~/.bashrc && source ~/.bashrc"
+alias src="source ~/.bashrc"
+
+
+spldiff() {
+	if [[ -z $3 ]]; then
+		diff <(scala lib/spl.jar $1 "$2") <(scala spl-solution.jar $1 "$2")
+	else
+		diff <(scala lib/spl.jar $1 "$2") <(scala spl-solution.jar $1 "$2") "tests/*"
+	fi
+}
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -33,7 +49,7 @@ export GIT_PS1_SHOWCOLORHINTS="true"
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
+HISTSIZE=2000
 HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
@@ -42,7 +58,7 @@ shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -78,13 +94,7 @@ GREEN='\[\033[01;32m\]'
 BLUE='\[\033[01;34m\]'
 RESET='\[\033[00m\]'
 if [ "$color_prompt" = yes ]; then
-    if [ -z $DEPTH ]; then
-        export DEPTH=0
-    else
-        DEPTH=$((DEPTH + 1))
-    fi
-    #PS1="($DEPTH) [\T] ${GREEN}\u${RESET}${BLUE} \w${RESET}${RED}"`__git_ps1`"${RESET} ${BLUE}\$${RESET} "
-    PS1='($DEPTH) [\T] \[\033[01;32m\]\u@\h\[\033[00m\]\[\033[01;34m\] \w\[\033[00m\]\[$(__git_ps1)\] \[\033[01;34m\]\$\[\033[00m\] '
+    PS1='nf\[$(__git_ps1)\]> '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w`__git_ps1` \$ '
 fi
