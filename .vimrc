@@ -59,7 +59,7 @@ nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 nnoremap n nzzzv
 nnoremap N Nzzzv
-nnoremap <leader>s :%s/\<C-r><C-w>//gI<Left><Left><Left>
+nnoremap <leader>s :%s/<C-r><C-w>//gI<Left><Left><Left>
 nnoremap <leader>x <cmd>!chmod +x %<CR>
 
 xnoremap <leader>p "_dP

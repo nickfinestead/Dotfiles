@@ -1,8 +1,13 @@
 #!/usr/bin/bash
+
+brightness=$(sudo brightnessctl i | grep "Current brightness" | sed 's/.*(\([0-9]\+\)%).*/\1/')
+if [ $brightness -leq 50 ]; then
+    exit 0
+fi
+
+
 metadata=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:org.mpris.MediaPlayer2.Player string:Metadata)
 img_path="/tmp/TEMP_SPOTIFY_IMG"
-# TODO: Add send-notify call with icon and song info, that would be pretty cool
-
 
 remove_quotes()
 {

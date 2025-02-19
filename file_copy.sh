@@ -16,4 +16,4 @@ done
 
 
 cp -rf ~/scripts .
-cp -rf ~/.config/i3 .
+cp -rf ~/.config/i3 ./.config
