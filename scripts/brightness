@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+
+
+input=$(brightnessctl)
+
+
+input=$(echo "$input" | grep -oP '(?<=\().*(?=\))')
+echo "$input"
+
+
+
+
+

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+get_network_name() {
+    local ip
+    local ssid
+    ssid=$(iwgetid -r)
+    if [[ ! -v "$ssid" ]]; then
+    	ip=$(ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | sed -n 2p)
+	# If docker adapter don't bother processing
+	if [[ "$ip" == "172.17.0.1" ]];
+	then
+	    echo -e "No Wi-Fi"
+	    echo
+	    echo "#FF0000"
+	else
+	    QUALITY=$(grep wlo1 /proc/net/wireless | awk '{ print int( $3 * 100 / 70) }')
+	    echo -e "Wi-Fi: ${ssid} (${ip}) ${QUALITY}%"
+	    echo $ip
+	    echo "#00FF00"
+	fi
+    else
+	echo -e "No Wi-Fi"
+	echo
+	echo "#FF0000"
+    fi
+}
+
+get_network_name

@@ -13,3 +13,7 @@ do
 		echo "	Copying $filename"
 	fi
 done
+
+
+cp -rf ~/scripts .
+cp -rf ~/.config/i3 .
