@@ -19,7 +19,7 @@ open_bookmark()
 	BOOKMARK_RAW=$(cat "$BOOKMARK_PATH" | sort -k 2 -r)
 	BOOKMARK_NAME=$( echo "$BOOKMARK_RAW" | sed "s/ [0-9]\+$//" | dmenu -l 20 -fn arial:size=10)
 
-	if [[ "$BOOKMARK_NAME" = "" ]]; then
+	if ! grep -o "$BOOKMARK_NAME" "$BOOKMARK_PATH"; then
 		exit 1
 	fi
 
@@ -27,8 +27,7 @@ open_bookmark()
 	BOOKMARK_FREQ=${BOOKMARK_FREQ:?0}
 
 	sed -i "s|${BOOKMARK_NAME} [0-9]\+|${BOOKMARK_NAME} $((BOOKMARK_FREQ + 1))|" "$BOOKMARK_PATH"
-	# Changed from xdotool to use in i3config to open with firefox
-	echo "$BOOKMARK_NAME"
+	firefox "$BOOKMARK_NAME"
 }
 
 

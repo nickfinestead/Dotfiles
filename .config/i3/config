@@ -92,7 +92,7 @@ bindsym Control+Shift+p exec --no-startup-id playerctl --player=spotify previous
 exec_always --no-startup-id "feh --bg-scale /home/nick/.backgrounds/* --randomize"
 
 bindsym $mod+b exec --no-startup-id $HOME/scripts/bookmark -c
-bindsym $mod+x exec --no-startup-id firefox $($HOME/scripts/bookmark -o)
+bindsym $mod+x exec --no-startup-id $HOME/scripts/bookmark -o
 bindsym $mod+z exec --no-startup-id sudo brightnessctl set 1 && feh --bg-scale /home/nick/Downloads/matt-gross-9aCkSl6YcXg-unsplash.jpg && $refresh_i3status
 
 bindsym $mod+m exec --no-startup-id sudo brightnessctl set 100% && $refresh_i3status

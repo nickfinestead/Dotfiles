@@ -15,5 +15,5 @@ do
 done
 
 
-cp -rf ~/scripts .
-cp -rf ~/.config/i3 ./.config
+cp -uvrf ~/scripts .
+cp -uvrf ~/.config/i3 ./.config
