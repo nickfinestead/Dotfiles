@@ -1,35 +1,35 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
-brightness=$(sudo brightnessctl i | grep "Current brightness" | sed 's/.*(\([0-9]\+\)%).*/\1/')
-if [ $brightness -leq 50 ]; then
+BRIGHTNESS=$(sudo brightnessctl i | grep "Current brightness" | sed 's/.*(\([0-9]\+\)%).*/\1/')
+if [ "$BRIGHTNESS" -le 49 ]; then
     exit 0
 fi
 
 
-metadata=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:org.mpris.MediaPlayer2.Player string:Metadata)
-img_path="/tmp/TEMP_SPOTIFY_IMG"
+METADATA=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:org.mpris.MediaPlayer2.Player string:Metadata)
+IMGPATH="/tmp/TEMP_SPOTIFY_IMG"
 
 remove_quotes()
 {
-    temp="$1"
-    temp="${temp#*\"}"
-    temp="${temp%\"*}"
-    echo "$temp"
+    TEMP="$1"
+    TEMP="${TEMP#*\"}"
+    TEMP="${TEMP%\"*}"
+    echo "$TEMP"
 }
 
 
-if [[ -v "$metadata" ]]; then
+if [[ -v "$METADATA" ]]; then
     exit 0
 fi
 
-artist=$(remove_quotes "$(echo "$metadata" | sed -n '/artist/{n;n;p}')")
-song=$(remove_quotes "$(echo "$metadata" | sed -n '/title/{n;p}')")
-icon=$(remove_quotes "$(echo "$metadata" | sed -n '/artUrl/{n;p}')")
+ARTIST=$(remove_quotes "$(echo "$METADATA" | sed -n '/artist/{n;n;p}')")
+SONG=$(remove_quotes "$(echo "$METADATA" | sed -n '/title/{n;p}')")
+ICON=$(remove_quotes "$(echo "$METADATA" | sed -n '/artUrl/{n;p}')")
 #status=$(playerctl status spotify | tr [:lower:] [:upper:])
-wget -O "$img_path" "$icon" &>/dev/null
-if [[ -z "$artist" || -z "$song" ]]; then
+wget -O "$IMGPATH" "$ICON" &>/dev/null
+if [[ -z "$ARTIST" || -z "$SONG" ]]; then
     exit 0
 fi
 
-notify-send -t 1500 -i "$img_path" "$artist - $song" 
-rm "$img_path" &>/dev/null
+notify-send -t 1500 -i "$IMGPATH" "$ARTIST - $SONG" 
+rm "$IMGPATH" &>/dev/null

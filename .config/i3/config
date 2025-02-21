@@ -85,19 +85,18 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 #
-bindsym Control+space exec --no-startup-id "playerctl play-pause"
-bindsym Control+Shift+n exec --no-startup-id playerctl next && sleep 1 && /home/nick/scripts/music
-bindsym Control+Shift+p exec --no-startup-id playerctl previous && sleep 1 && /home/nick/scripts/music
+bindsym Control+space exec --no-startup-id "playerctl --player=spotify play-pause"
+bindsym Control+Shift+n exec --no-startup-id playerctl --player=spotify next && sleep 1 && /home/nick/scripts/music
+bindsym Control+Shift+p exec --no-startup-id playerctl --player=spotify previous && sleep 1 && /home/nick/scripts/music
 
 exec_always --no-startup-id "feh --bg-scale /home/nick/.backgrounds/* --randomize"
-bindsym $mod+x exec --no-startup-id "firefox https://www.chess.com"
-bindsym $mod+z exec --no-startup-id sudo brightnessctl set 1 && feh --bg-scale /home/nick/Downloads/matt-gross-9aCkSl6YcXg-unsplash.jpg && $refresh_i3status
-# Paul
-# exec_always --no-startup-id "feh --bg-scale /home/nick/Downloads/IMG_1561.JPG"
 
-# Hoai
-# exec_always --no-startup-id "feh --bg-scale /home/nick/Downloads/Screenshot 2023-22-06 221546.png"
-#
+bindsym $mod+b exec --no-startup-id $HOME/scripts/bookmark -c
+bindsym $mod+x exec --no-startup-id firefox $($HOME/scripts/bookmark -o)
+bindsym $mod+z exec --no-startup-id sudo brightnessctl set 1 && feh --bg-scale /home/nick/Downloads/matt-gross-9aCkSl6YcXg-unsplash.jpg && $refresh_i3status
+
+bindsym $mod+m exec --no-startup-id sudo brightnessctl set 100% && $refresh_i3status
+bindsym $mod+n exec --no-startup-id sudo brightnessctl set 50% && $refresh_i3status
 
 # change focus
 bindsym $mod+j focus down

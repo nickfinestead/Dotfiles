@@ -7,7 +7,7 @@ let mapleader=","
 let g:netrw_banner=0
 let g:netrw_liststyle=3
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:^
-"set hlsearch
+set hlsearch
 set incsearch
 set nowrap
 set relativenumber

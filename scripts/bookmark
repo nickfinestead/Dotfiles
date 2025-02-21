@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+BOOKMARK_PATH="$HOME/.bookmarks"
+
+create_bookmark()
+{
+	BOOKMARK_URL=$(xclip -o)
+	if ! grep -q "$BOOKMARK_URL" "$BOOKMARK_PATH"; then
+		echo "$BOOKMARK_URL 1" >> "$BOOKMARK_PATH"
+	fi
+}
+
+open_bookmark()
+{
+	if [[ ! -f "$BOOKMARK_PATH" ]]; then
+		exit 1
+	fi
+	
+	BOOKMARK_RAW=$(cat "$BOOKMARK_PATH" | sort -k 2 -r)
+	BOOKMARK_NAME=$( echo "$BOOKMARK_RAW" | sed "s/ [0-9]\+$//" | dmenu -l 20 -fn arial:size=10)
+
+	if [[ "$BOOKMARK_NAME" = "" ]]; then
+		exit 1
+	fi
+
+	BOOKMARK_FREQ=$(grep "$BOOKMARK_NAME" "$BOOKMARK_PATH" | cut -d ' ' -f 2)
+	BOOKMARK_FREQ=${BOOKMARK_FREQ:?0}
+
+	sed -i "s|${BOOKMARK_NAME} [0-9]\+|${BOOKMARK_NAME} $((BOOKMARK_FREQ + 1))|" "$BOOKMARK_PATH"
+	# Changed from xdotool to use in i3config to open with firefox
+	echo "$BOOKMARK_NAME"
+}
+
+
+case "$1" in
+
+	"-o")
+			open_bookmark
+			;;
+	"-c")
+			create_bookmark
+			;;
+	*)
+			;;
+esac
