@@ -31,6 +31,13 @@ open_bookmark()
 }
 
 
+reset_bookmarks()
+{
+	# Reset frequency
+	sed -i "s/ [0-9]\+$/ 0/" "$BOOKMARK_PATH"
+}
+
+
 case "$1" in
 
 	"-o")
@@ -40,5 +47,6 @@ case "$1" in
 			create_bookmark
 			;;
 	*)
+			reset_bookmarks
 			;;
 esac
