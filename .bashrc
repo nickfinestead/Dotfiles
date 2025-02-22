@@ -20,9 +20,8 @@ alias v="nvim"
 alias rc="vim ~/.bashrc && source ~/.bashrc"
 alias src="source ~/.bashrc"
 alias off="sudo systemctl poweroff"
-alias minecraft="$HOME/Downloads/Minecraft/minecraft-launcher/minecraft-launcher"
-alias server="cd $HOME/Downloads/server && java -Xmx1024M -Xms1024M -jar server.jar nogui"
 alias timesheet="cd ~/Desktop/AutoTCP; dm; python main.py"
+
 # Remove gvim links in /usr/bin and replace with Gnome Editor
 # Fixes opening text files from explorer due to vim being default editor
 # sudo find /usr/bin -name "gvim*" -delete
@@ -34,6 +33,8 @@ alias c="git cm"
 xmodmap -e "remove lock = Caps_Lock" &>/dev/null
 xmodmap -e "keycode 66 = Escape" &>/dev/null
 
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
+
 
 # If not running interactively, don't do anything
 case $- in
@@ -42,8 +43,14 @@ case $- in
 esac
 
 xinput set-prop 10 "libinput Scrolling Pixel Distance" 50 &>/dev/null
-# I like to have the case insensitive tab complete
+
 bind 'set completion-ignore-case on'
+bind 'set completion-prefix-display-length 2'
+bind 'Control-j: menu-complete'
+bind 'Control-k: menu-complete-backward'
+bind 'set show-all-if-ambiguous on'
+bind 'set show-all-if-unmodified on'
+
 # God I hate when the cursor doesn't highlight a whole character
 #echo -e "\e[1 q"
 source /usr/lib/git-core/git-sh-prompt
