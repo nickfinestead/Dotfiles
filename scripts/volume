@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+
+
+VOL_RAW=$(amixer -D default)
+PERCENT=$(echo "$VOL_RAW"| sed -n 's/.* \[\([0-9]\+\)%\].*$/\1/p' | head -n 1)
+echo "VOL: $((PERCENT))%"

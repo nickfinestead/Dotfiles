@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+
+
+
+shopt -s extglob
+BAT=$(acpi -b)
+
+PERCENT=$(echo "$BAT" | sed 's/.* \([0-9]\+\)%.*$/\1/')
+
+STATE="${BAT#*: }"
+STATE="${STATE%%,*}"
+STATE="${STATE@U}"
+
+TIME="${BAT##*, }"
+TIME="${TIME%:*}"
+TIME="$((${TIME%:*}))h $((${TIME#*:}))m"
+
+
+
+echo "BAT: $((PERCENT))% $TIME"
+
+if [[ $((PERCENT)) -lt 50 && "$STATE" != "CHARGING" ]]; then
+	notify-send -u critical -t 2000 "Battery $((PERCENT))%"'!'
+fi
+
+shopt -u extglob

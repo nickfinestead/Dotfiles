@@ -17,7 +17,7 @@ set formatoptions=croql
 set shiftwidth=4
 set tabstop=4
 set noswapfile
-set clipboard^=unnamed
+set clipboard=unnamed
 set path+=**
 set wildmenu
 set timeout timeoutlen=3000 ttimeoutlen=100
@@ -90,6 +90,7 @@ highlight DiffChange term=NONE  ctermbg=blue  ctermfg=black
 highlight DiffText	 term=NONE  ctermbg=blue  ctermfg=white
 highlight DiffDelete term=NONE  ctermbg=red
 highlight MatchParen term=NONE  ctermbg=blue  ctermfg=white
+highlight ModeMsg    term=NONE  ctermfg=green  ctermbg=None
 
 if &syntax ==""
 	set filetype="notes"

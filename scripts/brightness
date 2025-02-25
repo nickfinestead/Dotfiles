@@ -6,7 +6,7 @@ input=$(brightnessctl)
 
 
 input=$(echo "$input" | grep -oP '(?<=\().*(?=\))')
-echo "$input"
+echo "BRI: $input"
 
 
 
