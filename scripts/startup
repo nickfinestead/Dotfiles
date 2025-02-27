@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+LOG_PATH="/home/nick/dwm.log"
+
+launch()
+{
+	PID=$(pgrep "$1")
+	if [[ -z "$PID" ]]; then
+		echo "launching $1"
+		exec "$@" & >> "$LOG_PATH"
+	else
+		echo "$1 running already" >> "$LOG_PATH"
+	fi 
+
+}
+
+
+rm "$LOG_PATH"
+launch alacritty -o font.size=8
+launch discord
+launch spotify
+launch parcellite
+
+if [[ ! -v $(pgrep dwmblocks) ]]; then
+	pkill dwmblocks
+	exec dwmblocks
+fi

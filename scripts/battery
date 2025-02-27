@@ -20,7 +20,7 @@ TIME="$((${TIME%:*}))h $((${TIME#*:}))m"
 
 echo "BAT: $((PERCENT))% $TIME"
 
-if [[ $((PERCENT)) -lt 50 && "$STATE" != "CHARGING" ]]; then
+if [[ $((PERCENT)) -lt 25 && "$STATE" != "CHARGING" ]]; then
 	notify-send -u critical -t 2000 "Battery $((PERCENT))%"'!'
 fi
 

@@ -2,6 +2,11 @@
 
 
 
-VOL_RAW=$(amixer -D default)
-PERCENT=$(echo "$VOL_RAW"| sed -n 's/.* \[\([0-9]\+\)%\].*$/\1/p' | head -n 1)
-echo "VOL: $((PERCENT))%"
+VOL_RAW=$( amixer -D default | sed -n "s/.* \[\([0-9]\+\)%\] \[\([a-z]*\)\].*/\1 \2/p" | head -n 1)
+
+if [[ "$VOL_RAW" =~ ['0-9']+' off' ]]; then
+	echo "VOL: MUTE"
+else
+	PERCENT="${VOL_RAW% *}"
+	echo "VOL: $((${PERCENT% *}))%"
+fi
