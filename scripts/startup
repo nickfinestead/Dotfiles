@@ -15,10 +15,10 @@ launch()
 
 
 rm "$LOG_PATH"
-launch alacritty -o font.size=8
+#launch alacritty -o font.size=8
 launch discord
 launch spotify
-launch parcellite
+#launch parcellite
 
 if [[ ! -v $(pgrep dwmblocks) ]]; then
 	pkill dwmblocks

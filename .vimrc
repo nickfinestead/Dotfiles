@@ -7,7 +7,7 @@ let mapleader=","
 let g:netrw_banner=0
 let g:netrw_liststyle=3
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:^
-set hlsearch
+set nohlsearch
 set incsearch
 set nowrap
 set relativenumber
@@ -16,6 +16,7 @@ set formatoptions=croql
 "set expandtab
 set shiftwidth=4
 set tabstop=4
+set expandtab
 set noswapfile
 set clipboard=unnamed
 set path+=**
@@ -60,7 +61,10 @@ nnoremap <C-u> <C-u>zz
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap <leader>s :%s/<C-r><C-w>//gI<Left><Left><Left>
-nnoremap <leader>x <cmd>!chmod +x %<CR>
+nnoremap <leader>x :w !chmod +x %<CR>
+
+nnoremap cn :cnext<CR>
+nnoremap cp :cprevious<CR>
 
 xnoremap <leader>p "_dP
 
@@ -77,6 +81,7 @@ nnoremap <C-j> <cmd>cprev<CR>zz
 nnoremap <leader>k <cmd>lnext<CR>zz
 nnoremap <leader>j <cmd>lprev<CR>zz
 
+nnoremap ++ *Ndwnzz
 
 "	COLORING
 colorscheme slate
@@ -110,4 +115,14 @@ endfunction
 augroup netrwFix
 	autocmd!
 	autocmd filetype netrw call NetrwMappings()
+augroup END
+
+function! PythonCompiler()
+	compiler pyunit
+	set makeprg=python3\ %
+endfunction
+
+augroup pythonCompiler
+	autocmd!
+	autocmd filetype python call PythonCompiler()
 augroup END

@@ -9,9 +9,9 @@ create_bookmark()
 		echo "http not in URL"
 		exit
 	fi
-	if ! grep -q "^$BOOKMARK_URL [0-9]\+$" "$BOOKMARK_PATH"; then
+	if ! grep -q "^[0-9]\+ $BOOKMARK_URL$" "$BOOKMARK_PATH"; then
 		echo "bookmark exists"
-		echo "$BOOKMARK_URL 1" >> "$BOOKMARK_PATH"
+		echo "1 $BOOKMARK_URL" >> "$BOOKMARK_PATH"
 	fi
 }
 
@@ -21,19 +21,22 @@ open_bookmark()
 		exit 1
 	fi
 	
-	BOOKMARK_RAW=$(cat "$BOOKMARK_PATH" | sort -k 2 -r)
-	BOOKMARK_NAME=$( echo "$BOOKMARK_RAW" | sed "s/ [0-9]\+$//" | dmenu -l 20 -fn arial:size=10)
+	BOOKMARK_RAW=$(cat "$BOOKMARK_PATH" | sort -nr)
+	BOOKMARK_NAME=$( echo "$BOOKMARK_RAW" | sed "s/[0-9]\+ //" | dmenu -l 20 -fn arial:size=10)
 
-	if ! grep -q "$BOOKMARK_NAME" "$BOOKMARK_PATH"; then
+	if [[ "$BOOKMARK_NAME" == "" ]]; then
 		exit 1
 	fi
 
-	BOOKMARK_FREQ=$(grep "^$BOOKMARK_NAME [0-9]\+$" "$BOOKMARK_PATH" | cut -d ' ' -f 2)
+	if ! grep -q "^[0-9]\+ $BOOKMARK_NAME$" "$BOOKMARK_PATH"; then
+		exit 1
+	fi
+
+	BOOKMARK_FREQ=$(grep "[0-9]\+ ${BOOKMARK_NAME}$" "$BOOKMARK_PATH" | cut -d ' ' -f 1)
 	BOOKMARK_FREQ=${BOOKMARK_FREQ:?0}
 
-	sed -i "s|${BOOKMARK_NAME} [0-9]\+|${BOOKMARK_NAME} $((BOOKMARK_FREQ + 1))|" "$BOOKMARK_PATH"
+	sed -i "s|[0-9]\+ ${BOOKMARK_NAME}|$((BOOKMARK_FREQ + 1)) ${BOOKMARK_NAME}|" "$BOOKMARK_PATH"
 	firefox "$BOOKMARK_NAME"
-	dwm-msg run_command view 2
 }
 
 rm_bookmark()
@@ -43,16 +46,19 @@ rm_bookmark()
 		exit 1
 	fi
 	
-	BOOKMARK_RAW=$(cat "$BOOKMARK_PATH" | sort -k 2 -r)
-	BOOKMARK_NAME=$( echo "$BOOKMARK_RAW" | sed "s/ [0-9]\+$//" | dmenu -l 20 -fn arial:size=10)
-
-	if ! grep -o "$BOOKMARK_NAME" "$BOOKMARK_PATH"; then
+	BOOKMARK_RAW=$(cat "$BOOKMARK_PATH" | sort -nr)
+	BOOKMARK_NAME=$( echo "$BOOKMARK_RAW" | sed "s/[0-9]\+ //" | dmenu -l 20 -fn arial:size=10)
+	if [[ "$BOOKMARK_NAME" == "" ]]; then
 		exit 1
 	fi
 
-	BOOKMARK_FREQ=$(grep "$BOOKMARK_NAME" "$BOOKMARK_PATH" | cut -d ' ' -f 2)
+	if ! grep -o "^[0-9]\+ ${BOOKMARK_NAME}" "$BOOKMARK_PATH"; then
+		exit 1
+	fi
+
+	BOOKMARK_FREQ=$(grep "$BOOKMARK_NAME" "$BOOKMARK_PATH" | cut -d ' ' -f 1)
 	BOOKMARK_FREQ=${BOOKMARK_FREQ:?0}
-	sed -i "/${BOOKMARK_NAME//\//\\\/} [0-9]\+/d" "$BOOKMARK_PATH"
+	sed -i "/[0-9]\+ ${BOOKMARK_NAME//\//\\\/}/d" "$BOOKMARK_PATH"
 }
 
 

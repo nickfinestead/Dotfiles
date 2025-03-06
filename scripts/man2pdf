@@ -2,5 +2,6 @@
 
 TMP_FILE="/tmp/temp_man.pdf"
 MAN_RAW=$(man -k  . | dmenu -l 20 -fn arial:size=10)
+[[ -z "$MAN_RAW" ]] && exit 0;
 man -Tps "${MAN_RAW%%\ *}" |  ps2pdf - "$TMP_FILE" && zathura "$TMP_FILE"
 rm "$TMP_FILE"

@@ -3,7 +3,7 @@
 # for examples
 
 setterm --background black
-
+xset r rate 300 50 
 export PATH+=":/home/nick/.programs/scala-2.11.7/bin"
 export PATH+=":/home/nick/.local/bin"
 export PATH+=":/usr/local/go/bin"
@@ -21,6 +21,7 @@ alias rc="vim ~/.bashrc && source ~/.bashrc"
 alias src="source ~/.bashrc"
 alias off="sudo systemctl poweroff"
 alias timesheet="cd ~/Desktop/AutoTCP; dm; python main.py"
+alias dwb="cd ~/Desktop/dwm &>/dev/null; ./run.sh; cd - &>/dev/null"
 
 # Remove gvim links in /usr/bin and replace with Gnome Editor
 # Fixes opening text files from explorer due to vim being default editor
@@ -46,10 +47,14 @@ xinput set-prop 10 "libinput Scrolling Pixel Distance" 50 &>/dev/null
 
 bind 'set completion-ignore-case on'
 bind 'set completion-prefix-display-length 2'
-bind 'Control-j: menu-complete'
-bind 'Control-k: menu-complete-backward'
+# bind 'Control-j: menu-complete'
+# bind 'Control-k: menu-complete-backward'
 bind 'set show-all-if-ambiguous on'
 bind 'set show-all-if-unmodified on'
+
+bind 'TAB: menu-complete'
+bind '"\e[Z": menu-complete-backward'
+
 
 # God I hate when the cursor doesn't highlight a whole character
 #echo -e "\e[1 q"
@@ -119,7 +124,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1 "
     ;;
 *)
     ;;
