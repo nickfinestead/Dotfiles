@@ -3,12 +3,12 @@ LOG_PATH="/home/nick/dwm.log"
 
 launch()
 {
-	PID=$(pgrep "$1")
-	if [[ -z "$PID" ]]; then
-		echo "launching $1"
+	PID=$(ps -aux | grep "$1" | wc -l)
+	if [[ "$((PID))" -lt 2 ]]; then
+		echo "$(date) launching $1"
 		exec "$@" & >> "$LOG_PATH"
 	else
-		echo "$1 running already" >> "$LOG_PATH"
+		echo "$(date) $1 running already" >> "$LOG_PATH"
 	fi 
 
 }

@@ -83,6 +83,11 @@ nnoremap <leader>j <cmd>lprev<CR>zz
 
 nnoremap ++ *Ndwnzz
 
+" Making finding/opening files easier
+nnoremap <leader>ff :find<Space>
+nnoremap <leader>fv :vsp \| find<Space>
+nnoremap <leader>fs :sp \| find<Space>
+
 "	COLORING
 colorscheme slate
 highlight LineNr	 ctermfg=green
@@ -106,6 +111,21 @@ endif
 " Removes trailing whitespace
 function! Trail()
 	:%s/\s\+$//e
+endfunction
+
+" Searches all open buffers for a pattern and puts into the quick fix menu
+function SearchBuffers(pattern)
+    cexpr []
+    let l:buffers = getbufinfo({'buflisted': 1})
+    for l:buf in l:buffers
+        let l:bufnr = l:buf.bufnr
+        execute 'silent! vimgrepadd /' . a:pattern . '/g ' . bufname(l:bufnr)
+    endfor
+    if len(getqflist()) > 0
+        copen
+    else
+        cclose
+    endif
 endfunction
 
 function! NetrwMappings()

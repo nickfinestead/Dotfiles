@@ -14,8 +14,11 @@ STATE="${STATE@U}"
 
 TIME="${BAT##*, }"
 TIME="${TIME%:*}"
-TIME="$((${TIME%:*}))h $((${TIME#*:}))m"
-
+if [[ "$TIME" == "100%" ]]; then
+    unset TIME
+else
+    TIME="$((${TIME%:*}))h $((${TIME#*:}))m"
+fi
 
 
 echo "BAT: $((PERCENT))% $TIME"
