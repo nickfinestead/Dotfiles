@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 BRIGHTNESS=$(sudo brightnessctl i | grep "Current brightness" | sed 's/.*(\([0-9]\+\)%).*/\1/')
-if [ "$BRIGHTNESS" -le 49 ]; then
+if [ "$BRIGHTNESS" -le 99 ]; then
     exit 0
 fi
 
@@ -31,5 +31,5 @@ if [[ -z "$ARTIST" || -z "$SONG" ]]; then
     exit 0
 fi
 
-notify-send -t 1500 -i "$IMGPATH" "$ARTIST - $SONG" 
+notify-send -a Spotify -t 1500 -i "$IMGPATH" "$ARTIST - $SONG"
 rm "$IMGPATH" &>/dev/null

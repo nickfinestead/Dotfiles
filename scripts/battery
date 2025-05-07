@@ -6,7 +6,7 @@
 shopt -s extglob
 BAT=$(acpi -b)
 
-PERCENT=$(echo "$BAT" | sed 's/.* \([0-9]\+\)%.*$/\1/')
+PERCENT=$(echo "$BAT" | tail -n 1 | sed 's/.* \([0-9]\+\)%.*$/\1/')
 
 STATE="${BAT#*: }"
 STATE="${STATE%%,*}"
@@ -23,8 +23,8 @@ fi
 
 echo "BAT: $((PERCENT))% $TIME"
 
-if [[ $((PERCENT)) -lt 25 && "$STATE" != "CHARGING" ]]; then
-	notify-send -u critical -t 2000 "Battery $((PERCENT))%"'!'
-fi
+#if [[ $((PERCENT)) -lt 25 && "$STATE" != "CHARGING" ]]; then
+#	notify-send -u critical -t 2000 "Battery $((PERCENT))%"'!'
+#fi
 
 shopt -u extglob
