@@ -62,6 +62,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap <leader>s :%s/<C-r><C-w>//gI<Left><Left><Left>
 nnoremap <leader>x :w !chmod +x %<CR>
+nnoremap Q :qa<CR>
 
 nnoremap cn :cnext<CR>
 nnoremap cp :cprevious<CR>
